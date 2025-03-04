@@ -1,0 +1,2 @@
+# kql
+kql queries
