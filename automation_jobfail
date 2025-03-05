@@ -1,5 +1,6 @@
 // run in log analytics workspace. to find when an azure automation job fails
 AzureDiagnostics
+//| where TimeGenerated > ago(1d)
 | where OperationName == "Job"
 | where ResourceProvider == "MICROSOFT.AUTOMATION"
 | where Resource == "x"
