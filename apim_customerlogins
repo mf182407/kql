@@ -1,0 +1,5 @@
+// run in log analytics workspace. to find logins (if none might be security tool blocking before apim)
+ApiManagementGatewayLogs
+| where TimeGenerated > ago(15m)
+| where Url == "x"
+| where parse_json(RequestBody).UserName == "x"
