@@ -1,0 +1,6 @@
+// run in log analytics workspace. to find when redis has high memory
+AzureMetrics 
+| where (ResourceGroup == "x" or ResourceGroup contains "PRD") //prod 
+| where ResourceProvider == "MICROSOFT.CACHE"
+| project TimeGenerated, Resource, ResourceGroup, MetricName, Total, Count, Maximum, Minimum, Average
+| where MetricName == "usedmemorypercentage" and Maximum > x // set to values of choice
