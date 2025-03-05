@@ -1,5 +1,6 @@
 // run in log analytics workspace. to find when cosmos databases have 409s
 AzureDiagnostics
+//| where TimeGenerated > ago(1d)
 | where ResourceGroup == "x" or ResourceGroup contains "PRD" //prod subscription
 | where ResourceProvider == "MICROSOFT.DOCUMENTDB"
 | where Category == "DataPlaneRequests" and statusCode_s == 409
