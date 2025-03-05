@@ -1,0 +1,7 @@
+// run in log analytics workspace. to find when cosmos databases have 429s
+AzureDiagnostics
+| where ResourceGroup == "x" or ResourceGroup contains "PRD" //prod subscription
+| where ResourceProvider == "MICROSOFT.DOCUMENTDB"
+| where Category == "DataPlaneRequests" and statusCode_s == 429
+| where databaseName_s <> ""
+| summarize AggregatedValue = count() by Resource, databaseName_s, collectionName_s, bin(TimeGenerated, 5m)
