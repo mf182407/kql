@@ -1,0 +1,7 @@
+// run in log analytics workspace. to find 5xx errors
+ApiManagementGatewayLogs
+//| where TimeGenerated > ago(1d)
+| where _ResourceId startswith "/subscriptions/x" // prod sub
+| where BackendResponseCode >= 500 and BackendResponseCode <= 599
+| summarize ErrorCount = count() by OperationId, BackendResponseCode, bin(TimeGenerated, 5m)
+| project TimeGenerated, OperationId, ErrorCount, BackendResponseCode
