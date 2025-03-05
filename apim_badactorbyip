@@ -1,0 +1,10 @@
+// run in log analytics workspace. to find bad actors by ip
+ApiManagementGatewayLogs
+//| where TimeGenerated >= ago (1h)
+| where BackendUrl startswith "x"
+| where ResponseCode >= 400 and ResponseCode <= 499
+| where Method == "GET"
+| extend ip=tostring(RequestHeaders.["X-Forwarded-For"])
+| extend cip = tostring(split(ip, ",", 0))
+//| make-series hits = count() on TimeGenerated in range (start, end, 5m) by cip
+//| render timechart 
