@@ -1,4 +1,4 @@
-// run in log analytics workspace
+// run in log analytics workspace. to find when cosmos database is not 100% available
 AzureMetrics
 | where ResourceGroup == "x" or ResourceGroup contains "PRD" // production only
 | where ResourceProvider == "MICROSOFT.DOCUMENTDB"
