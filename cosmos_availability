@@ -1,0 +1,8 @@
+// run in log analytics workspace
+AzureMetrics
+| where ResourceGroup == "x" or ResourceGroup contains "PRD" // production only
+| where ResourceProvider == "MICROSOFT.DOCUMENTDB"
+| where MetricName == "ServiceAvailability"
+| where Total != 100
+//| where ingestion_time() > ago(5m) //if u want to ingest latest into splunk via msft cloud services add on
+| project TimeGenerated, Resource, MetricName, Total, UnitName, Type
