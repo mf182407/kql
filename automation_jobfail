@@ -1,0 +1,9 @@
+// run in log analytics workspace. to find when an azure automation job fails
+AzureDiagnostics
+| where OperationName == "Job"
+| where ResourceProvider == "MICROSOFT.AUTOMATION"
+| where Resource == "x"
+| where ResultDescription == "Job Failed"
+| where RunbookName_s == "x"
+| extend RunbookName = RunbookName_s
+| project RunbookName, Resource
