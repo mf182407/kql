@@ -1,0 +1,8 @@
+// run in log analytics workspace. to find 5xx errors
+ApiManagementGatewayLogs
+//| where TimeGenerated > ago(15m)
+| where OperationId == "x"
+| where Url startswith "x"
+| extend newfield = iff(ApiId  == "x", "value1","value2")
+| summarize count() by newfield, ProductId, bin(TimeGenerated, 5m)
+| render timechart
