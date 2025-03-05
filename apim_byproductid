@@ -1,0 +1,8 @@
+// run in log analytics workspace. to find logs by product id
+ApiManagementGatewayLogs
+//| where TimeGenerated >= ago (1d)
+//| where Url contains "x"
+| where ProductId == "x"
+| where OperationId == "x"
+//| make-series hits = count() on TimeGenerated in range (start, end, 5m) by ProductId
+//| render timechart
