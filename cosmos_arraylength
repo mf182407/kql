@@ -1,0 +1,2 @@
+// run in cosmos collection. to find when array length is more than 1 (multiple rows for 1 field)
+SELECT count(c.partitionKey) FROM c WHERE c.submitDateTimeUtc > "2024-07-31T04:00:00.0000000" and ARRAY_LENGTH(c.x) > 1
